@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:texple/NewTransaction.dart';
 import 'package:http/http.dart' as http;
-import 'package:texple/transaction_model.dart';
 
 class Home extends StatefulWidget {
   final String mobileRegister;
@@ -14,7 +13,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Transaction> items = [];
   List _transaction = [];
   Map _balance = {};
 
@@ -26,17 +24,6 @@ class _HomeState extends State<Home> {
 
     super.initState();
   }
-
-  // void addTrasaction(title, amount) {
-  //   final newTrans = Transaction(
-  //     id: DateTime.now().toString(),
-  //     title: title,
-  //     transactionAmount: amount,
-  //   );
-  //   setState(() {
-  //     items.add(newTrans);
-  //   });
-  // }
 
 //List Tiles Widget
 
@@ -90,18 +77,7 @@ class _HomeState extends State<Home> {
 
       _transaction = transaction['transactions'];
 
-      final List<Transaction> lodadTransaction = [];
-      for (var t in _transaction) {
-        lodadTransaction.add(Transaction(
-          id: t['_id'].toString(),
-          transactionAmount: t['transactionAmount'].toString(),
-          title: t['title'],
-        ));
-      }
-
-      setState(() {
-        items = lodadTransaction;
-      });
+      setState(() {});
     } catch (error) {
       print(error);
       throw error;
@@ -169,11 +145,12 @@ class _HomeState extends State<Home> {
                   color: Colors.white30,
                 ),
                 child: ListView.builder(
-                    itemCount: items.length,
+                    itemCount: _transaction.length,
                     itemBuilder: (context, index) {
                       return listTiles(
-                        title: items[index].title,
-                        amount: items[index].transactionAmount,
+                        title: _transaction[index]['title'],
+                        amount:
+                            _transaction[index]['transactionAmount'].toString(),
                       );
                     }),
               ),

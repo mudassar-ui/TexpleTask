@@ -55,8 +55,7 @@ class _NewTransactionState extends State<NewTransaction> {
           'Authorization': widget.mobileRegister,
         },
       );
-
-      if (response.statusCode == 200) {}
+      var message = jsonDecode(response.body);
     } catch (error) {
       print(error);
       throw error;
